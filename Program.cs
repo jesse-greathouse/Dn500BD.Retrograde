@@ -1,182 +1,137 @@
 ﻿using Gdk;
 using Gtk;
-using System.IO;
+using System;
 using System.IO.Ports;
 
-class MyWindow : Gtk.Window {
-    public MyWindow() : base("DN 500BD Retrograde") {
-    }
+class MyWindow : Gtk.Window
+{
+    public MyWindow() : base("DN 500BD Retrograde") { }
 
-    protected override bool OnDeleteEvent(Event e) {
+    protected override bool OnDeleteEvent(Event e)
+    {
         Application.Quit();
         return true;
     }
 }
 
-class Hello {
-    private static SerialPort mySerial;
-    static Entry portBox;
+class Retrograde
+{
+    private static SerialPort? _serialPort;
+    private static Entry _portBox = new();
+    private static VBox _timecodeBox = new();
+    private static ScrolledWindow _scrollWindow = new();
+    private static Button[] _controlButtons;
 
-    static string ReadData()
+    private const string HomeCommand = "@0PCHM\r";
+    private const string UpCommand = "@0PCCUSR3\r";
+    private const string DownCommand = "@0PCCUSR4\r";
+    private const string LeftCommand = "@0PCCUSR1\r";
+    private const string RightCommand = "@0PCCUSR2\r";
+    private const string EnterCommand = "@0PCENTR\r";
+    private const string TimecodeCommand = "@0PCTMD";
+
+    private static string ReadData()
     {
-        byte tmpByte;
-        string rxString = "";
- 
-        tmpByte = (byte) mySerial.ReadByte();
- 
-        while (tmpByte != 255) {
-            rxString += ((char) tmpByte);
-            tmpByte = (byte) mySerial.ReadByte();
+        string receivedData = "";
+        byte tempByte = (byte)_serialPort!.ReadByte();
+
+        while (tempByte != 255)
+        {
+            receivedData += (char)tempByte;
+            tempByte = (byte)_serialPort.ReadByte();
         }
- 
-        return rxString;
+
+        return receivedData;
     }
- 
-    static bool SendData(string Data)
-    {  
-        mySerial.Write(Data);
+
+    private static bool SendData(string command, string? parameter = null)
+    {
+        string fullCommand = parameter != null ? command + parameter + "\r" : command;
+        _serialPort?.Write(fullCommand);
         return true;
     }
 
-     static void on_homeclick(object? sender, EventArgs args) {
-        SendData("@0PCHM\r");
-         //Console.WriteLine(ReadData());
-        Console.WriteLine("up");
-        return;
+    private static void ToggleButtons(bool enabled)
+    {
+        foreach (var button in _controlButtons)
+        {
+            button.Sensitive = enabled;
+        }
     }
 
-    static void on_upclick(object? sender, EventArgs args) {
-	SendData("@0PCCUSR3\r");
-	//Console.WriteLine(ReadData());
-        Console.WriteLine("up");
-        return;
+    private static void OnButtonClick(string command, string message)
+    {
+        SendData(command);
+        Console.WriteLine(message);
     }
 
-        static void on_dnclick(object? sender, EventArgs args) {
-		 SendData("@0PCCUSR4\r");        //Console.WriteLine(ReadData());
-
-        Console.WriteLine("down");
-        return;
-    }
-        static void on_lfclick(object? sender, EventArgs args) {
-		 SendData("@0PCCUSR1\r");        //Console.WriteLine(ReadData());
-
-        Console.WriteLine("left");
-        return;
-    }
-        static void on_rtclick(object? sender, EventArgs args) {
-		 SendData("@0PCCUSR2\r");        //Console.WriteLine(ReadData());
-
-        Console.WriteLine("right");
-        return;
+    private static void OnConnectClick(object? sender, EventArgs args)
+    {
+        _serialPort?.Close();
+        _serialPort = new SerialPort(_portBox.Text, 115200) { ReadTimeout = 400 };
+        _serialPort.Open();
+        ToggleButtons(true);
     }
 
-     static void on_connectclick(object? sender, EventArgs args) {
-        if (mySerial != null)
-            if (mySerial.IsOpen)
-                mySerial.Close();
- 
-        mySerial = new SerialPort(portBox.Text, 115200);
-        mySerial.Open();
-        mySerial.ReadTimeout = 400;
-
-        return;
-    }
-
-        static void on_entclick(object? sender, EventArgs args) {
-		SendData("@0PCENTR\r");
-        Console.WriteLine("enter");
-        return;
-    }
-
-    static void Main() {
-
-
+    public static void Main()
+    {
         Application.Init();
 
-        // string[] ports = SerialPort.GetPortNames();
-        portBox = new Entry();
-        // ListStore store = new ListStore(typeof(string));
+        var window = new MyWindow();
+        var mainLayout = new Box(Orientation.Vertical, 5);
 
-        //  store.AppendValues(ports);
+        // Port Entry
+        var portEntryLayout = new Box(Orientation.Horizontal, 5);
+        portEntryLayout.PackStart(_portBox, true, true, 0);
+        mainLayout.PackStart(portEntryLayout, false, false, 0);
 
-        // portBox.Completion = new EntryCompletion ();
-        // portBox.Completion.Model = store;
-        // portBox.Completion.TextColumn = 0;
+        // Connect Button
+        var connectButton = new Button("Connect");
+        connectButton.Clicked += OnConnectClick;
+        var connectLayout = new Box(Orientation.Horizontal, 5);
+        connectLayout.PackStart(connectButton, true, true, 0);
+        mainLayout.PackStart(connectLayout, false, false, 0);
 
-        MyWindow w = new MyWindow();
-        VBox v = new VBox();
-        HBox h = new HBox();
+        // Navigation Buttons
+        var upButton = new Button("^");
+        upButton.Clicked += (sender, args) => OnButtonClick(UpCommand, "Up");
 
-        h.Add(portBox);
-        v.Add(h);
+        var leftButton = new Button("<");
+        leftButton.Clicked += (sender, args) => OnButtonClick(LeftCommand, "Left");
+        var enterButton = new Button("Enter");
+        enterButton.Clicked += (sender, args) => OnButtonClick(EnterCommand, "Enter");
+        var rightButton = new Button(">");
+        rightButton.Clicked += (sender, args) => OnButtonClick(RightCommand, "Right");
+        var downButton = new Button("V");
+        downButton.Clicked += (sender, args) => OnButtonClick(DownCommand, "Down");
+        var homeButton = new Button("Home");
+        homeButton.Clicked += (sender, args) => OnButtonClick(HomeCommand, "Home");
 
-        h = new HBox();
+        _controlButtons = new Button[] { upButton, leftButton, enterButton, rightButton, downButton, homeButton };
+        ToggleButtons(false);
 
-        Button connect = new Button();
-        connect.Label = "Connect";
-        connect.Clicked += on_connectclick;
+        mainLayout.PackStart(CreateButtonRow(null, upButton, null), true, true, 0);
+        mainLayout.PackStart(CreateButtonRow(leftButton, enterButton, rightButton), true, true, 0);
+        mainLayout.PackStart(CreateButtonRow(null, downButton, null), true, true, 0);
+        mainLayout.PackStart(CreateButtonRow(homeButton), true, true, 0);
 
-        h.Add(connect);
-        v.Add(h);
+        // Timecode Entry Section
+        _scrollWindow.AddWithViewport(_timecodeBox);
+        _scrollWindow.SetPolicy(PolicyType.Automatic, PolicyType.Automatic);
+        mainLayout.PackStart(_scrollWindow, true, true, 0);
 
-        h = new HBox();
-
-        h.Add(new Label());
-
-        Button up = new Button();
-        up.Label = "^";
-        up.Clicked += on_upclick;
-
-        h.Add(up);
-        
-        h.Add(new Label());
-        v.Add(h);
-
-        h = new HBox();
-
-        Button lf = new Button();
-        lf.Label = "<";
-        lf.Clicked += on_lfclick;
-
-        Button ent = new Button();
-        ent.Label = "Enter";
-        ent.Clicked += on_entclick;
-
-        Button rt = new Button();
-        rt.Label = ">";
-        rt.Clicked += on_rtclick;
-
-        h.Add(lf);
-        h.Add(ent);
-        h.Add(rt);
-        v.Add(h);
-
-        h = new HBox();
-        h.Add(new Label());
-        
-        Button dn = new Button();
-        dn.Label = "V";
-        dn.Clicked += on_dnclick;
-
-        h.Add(dn);
-        h.Add(new Label());
-       
-        v.Add(h);
-
-	h = new HBox();
-
-        Button home = new Button();
-        home.Label = "Home";
-        home.Clicked += on_homeclick;
-
-	h.Add(home);
-	v.Add(h);
-
-       
-        w.Add(v);
-        w.ShowAll();
-        
+        window.Add(mainLayout);
+        window.ShowAll();
         Application.Run();
+    }
+
+    private static Box CreateButtonRow(params Widget?[] widgets)
+    {
+        var row = new Box(Orientation.Horizontal, 5);
+        foreach (var widget in widgets)
+        {
+            row.PackStart(widget ?? new Label(), true, true, 0);
+        }
+        return row;
     }
 }

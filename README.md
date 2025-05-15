@@ -9,7 +9,7 @@
 ### ✅ Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- GTK3 runtime (see [GTK# installation](https://www.mono-project.com/docs/gui/gtksharp/installation/windows/))
+- GTK3 runtime (see [GTK# installation](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer))
 - Windows 10 or 11
 
 > ⚠️ If running on Linux or macOS, ensure that the `libgtk-3` library is installed and accessible in your system's dynamic linker path.
@@ -116,7 +116,7 @@ The Denon DN-500BD accepts commands over RS232 using a proprietary ASCII protoco
 | Disc Tray Close        | `@0PCDTRYCL\r`  | Closes tray                             |
 | Display Timecode Mode  | `@0PCTMDTL\r`   | Switches to total elapsed time          |
 
-> For full specifications, refer to the official Denon RS232 Protocol documentation for the DN-500BD.
+> For full specifications, refer to the official [Denon RS232 Protocol documentation for the DN-500BD](https://raw.githubusercontent.com/jesse-greathouse/dn-retrograde/refs/heads/main/Denon%20DN-500BD_MKII_Protocol_Guide_1.0.pdf).
 
 ---
 

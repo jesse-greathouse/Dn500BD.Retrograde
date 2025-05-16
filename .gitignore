@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# used for workshopping large commit messages
+commit.txt
+
 # dotenv files
 .env
 

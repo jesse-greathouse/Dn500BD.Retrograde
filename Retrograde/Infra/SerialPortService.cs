@@ -1,7 +1,7 @@
 using System.IO.Ports;
 using System.Text;
 
-namespace Dn500BD.Retrograde;
+namespace Dn500BD.Retrograde.Infra;
 
 public class SerialPortService : ISerialPortService, IDisposable
 {

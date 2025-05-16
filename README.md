@@ -68,6 +68,22 @@ To connect your PC to the **Denon DN-500BD**:
 
 > More buttons and features are under development, including playback control, subtitle switching, and advanced menu navigation.
 
+## 🛠️ Utilities
+
+### `audit.ps1`
+
+The `audit.ps1` script is a PowerShell utility for auditing the current project structure and contents. It recursively prints out the contents of all source files matching a given mask (e.g. `*.cs`, `*.sln`, etc.) for quick code inspection, documentation, or review purposes.
+
+**Usage:**
+
+```powershell
+.\audit.ps1 -Mask "*.cs"
+```
+
+This will display all .cs files in the repository, grouped by filename and directory.
+
+> Tip: You can use multiple masks by separating them with a pipe (|), e.g. *.cs|*.sln.
+
 ---
 
 ## 📖 Denon DN-500BD Command Reference

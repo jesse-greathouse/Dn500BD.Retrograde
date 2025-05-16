@@ -1,6 +1,7 @@
+using Dn500BD.Retrograde.Infra;
 using Microsoft.Extensions.Logging;
 
-namespace Dn500BD.Retrograde;
+namespace Dn500BD.Retrograde.Core;
 
 public class DenonRemoteController(ISerialPortService serial, ILogger logger) : IDenonRemote
 {

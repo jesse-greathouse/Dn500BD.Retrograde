@@ -1,4 +1,4 @@
-namespace Dn500BD.Retrograde;
+namespace Dn500BD.Retrograde.Infra;
 
 public interface ISerialPortService
 {

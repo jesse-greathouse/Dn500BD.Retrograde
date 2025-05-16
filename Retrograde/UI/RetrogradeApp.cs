@@ -1,9 +1,10 @@
+using System.IO.Ports;
+using Dn500BD.Retrograde.Core;
+using Dn500BD.Retrograde.Infra;
 using Gtk;
 using Microsoft.Extensions.Logging;
-using System.IO.Ports;
-using Dn500BD.Retrograde;
 
-namespace Dn500BD;
+namespace Dn500BD.Retrograde.UI;
 
 public class RetrogradeApp(ILogger logger, Action<ISerialPortService> onSerialReady)
 {

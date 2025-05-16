@@ -1,4 +1,4 @@
-namespace Dn500BD.Retrograde;
+namespace Dn500BD.Retrograde.Core;
 
 public class DenonCommand(string label, string code)
 {

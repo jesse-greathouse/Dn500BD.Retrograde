@@ -6,9 +6,11 @@
     xmlns:local="using:Dn500BD"
     Title="DN 500BD Retrograde">
 
-    <StackPanel Padding="20" Spacing="12">
-        <TextBlock Text="Select COM Port:" FontWeight="Bold"/>
-        <ComboBox x:Name="ComPortComboBox" Width="300" />
-        <Button Content="Open Controller" Width="150" Click="OnOpenControllerClick"/>
-    </StackPanel>
+    <Grid x:Name="RootGrid">
+        <StackPanel Padding="20" Spacing="12">
+            <TextBlock Text="Select COM Port:" FontWeight="Bold"/>
+            <ComboBox x:Name="ComPortComboBox" Width="300" />
+            <Button Content="Open Controller" Width="150" Click="OnOpenControllerClick"/>
+        </StackPanel>
+    </Grid>
 </Window>

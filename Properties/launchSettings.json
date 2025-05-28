@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Dn500BD.Retrograde (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Dn500BD.Retrograde (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

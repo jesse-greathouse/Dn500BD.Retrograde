@@ -1,3 +1,6 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+
 namespace Dn500BD.Retrograde.Infra;
 
 public interface ISerialPortService

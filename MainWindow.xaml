@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Dn500BD.Retrograde.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Dn500BD"
+    Title="DN 500BD Retrograde">
+
+    <Grid x:Name="RootGrid">
+        <StackPanel Padding="20" Spacing="12">
+            <TextBlock Text="Select COM Port:" FontWeight="Bold"/>
+            <ComboBox x:Name="ComPortComboBox" Width="300" />
+            <Button Content="Open Controller" Width="150" Click="OnOpenControllerClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

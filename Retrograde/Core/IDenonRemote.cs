@@ -1,3 +1,6 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Dn500BD.Retrograde.Core;
 
 public interface IDenonRemote

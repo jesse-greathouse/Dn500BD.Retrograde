@@ -16,8 +16,8 @@ Examples:
   .\audit.ps1
       Process all files under the current directory
 
-  .\audit.ps1 -Mask "*.lua"
-      Process only .lua files
+  .\audit.ps1 -Mask "*.cs|*.xaml"
+      Process only C# and XAML files
 
   .\audit.ps1 -Path "./src"
       Start searching in ./src
@@ -26,10 +26,10 @@ Examples:
       Show only file paths, not content
 
   .\audit.ps1 -Hidden
-      Include hidden files (e.g. .env)
+      Include hidden files (e.g. .env, .gitignore)
 
 Options:
-  -Mask         Glob pattern or multiple patterns like "*.ps1|*.txt"
+  -Mask         Glob pattern or multiple patterns like "*.ps1|*.cs"
   -Path         Directory to start searching (default: current directory)
   -Summary      Only print file paths, not file contents
   -Hidden       Include hidden files (those starting with '.')
@@ -42,10 +42,37 @@ if ($Help) {
     Show-Help
 }
 
-# Split mask into an array of patterns (e.g., "*.pl|*.ps1")
+# Split mask into an array of patterns (e.g., "*.cs|*.xaml")
 $patterns = @()
 if ($Mask) {
     $patterns = $Mask -split '\|'
+}
+
+# Directory name exclusion (regex)
+$excludedDirs = @(
+    '\\bin\\', '\\obj\\', '\\.vs\\',
+    '\\Debug\\', '\\Release\\',
+    '\\packages\\', '\\TestResults\\'
+)
+
+# File name exclusion (regex or exact match)
+$excludedFiles = @(
+    '.*\.dll$', '.*\.exe$', '.*\.pdb$', '.*\.cache$', '.*\.pdf',
+    '.*\.log$', '.*\.csproj$', '.*\.sln$', '.*\.user$', '.*\.suo$',
+    '^\.DS_Store$', '.*\.tmp$', '.*\.bak$', '.*\.g\.cs$', '.*\.AssemblyInfo\.cs$'
+)
+
+# Helper to test for binary content
+function Is-BinaryFile($path) {
+    try {
+        $bytes = [System.IO.File]::ReadAllBytes($path)
+        foreach ($b in $bytes[0..([Math]::Min(1024, $bytes.Length - 1))]) {
+            if ($b -eq 0) { return $true }
+        }
+        return $false
+    } catch {
+        return $true
+    }
 }
 
 # Normalize full path
@@ -53,16 +80,25 @@ $resolvedPath = Resolve-Path -Path $Path -ErrorAction Stop
 
 Get-ChildItem -Path $resolvedPath -Recurse -File -Force:$Hidden | ForEach-Object {
     $file = $_
+    $fullPath = $file.FullName
 
-    # Skip files inside Debug or Release directories
-    if ($file.FullName -match "\\(Debug|Release)\\") {
-        return
+    # Skip excluded directories
+    foreach ($pattern in $excludedDirs) {
+        if ($fullPath -match $pattern) { return }
     }
 
-    # Skip hidden files unless explicitly included
+    # Skip hidden files unless requested
     if (-not $Hidden -and ($file.Name -match '^\.' -or $file.Attributes -match "Hidden")) {
         return
     }
+
+    # Skip excluded file patterns
+    foreach ($pattern in $excludedFiles) {
+        if ($file.Name -match $pattern) { return }
+    }
+
+    # Skip binary files
+    if (Is-BinaryFile $fullPath) { return }
 
     # Apply file mask if specified
     if ($patterns.Count -gt 0) {
@@ -73,20 +109,19 @@ Get-ChildItem -Path $resolvedPath -Recurse -File -Force:$Hidden | ForEach-Object
                 break
             }
         }
-        if (-not $matched) {
-            return
-        }
+        if (-not $matched) { return }
     }
 
     if ($Summary) {
-        Write-Output $file.FullName
+        Write-Output $fullPath
     } else {
-        Write-Output "--- START $($file.FullName) ---"
+        Write-Output "--- START $fullPath ---"
         try {
-            Get-Content -Path $file.FullName -Raw
+            Get-Content -Path $fullPath -Raw
         } catch {
-            Write-Warning "Could not read $($file.FullName): $_"
+            Write-Warning "Could not read $($fullPath): $_"
         }
-        Write-Output "--- END $($file.FullName) ---`n"
+        Write-Output "--- END $fullPath ---`n"
     }
 }
+

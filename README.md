@@ -1,6 +1,6 @@
 ﻿# DN 500BD Retrograde
 
-**DN 500BD Retrograde** is a Windows application written in C# (.NET 8) for controlling the **Denon DN-500BD Blu-ray Disc Player** via its RS232 serial port. It features a GTK-based graphical interface with command buttons mapped to Denon's documented control protocol.
+**DN 500BD Retrograde** is a Windows application written in C# (.NET 8 & WinUI 3) for controlling the **Denon DN-500BD Blu-ray Disc Player** via its RS232 serial port. It features a GTK-based graphical interface with command buttons mapped to Denon's documented control protocol.
 
 ---
 
@@ -9,19 +9,24 @@
 ### ✅ Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- GTK3 runtime (see [GTK# installation](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer))
+- Windows App Runtime (see [Latest Windows App SDK]https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads))
 - Windows 10 or 11
 
-> ⚠️ If running on Linux or macOS, ensure that the `libgtk-3` library is installed and accessible in your system's dynamic linker path.
-
-### 💻 Building and Running the App
+## 🏗️ Windows Build & Deployment (WinUI 3)
 
 ```bash
 dotnet restore
-dotnet build
-dotnet run
+dotnet build -c Release
+dotnet publish -c Release -r win-x64 --self-contained
 ```
 
+### To sideload
+- Enable Developer Mode in Windows Settings → Privacy & Security → For Developers
+- Run the generated .msixbundle or install using PowerShell:
+
+```bash
+Add-AppxPackage -Path .\path\to\your.msixbundle
+```
 ---
 
 ## 🧩 Hardware Requirements

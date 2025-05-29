@@ -43,9 +43,15 @@ if ($Help) {
 }
 
 # Split mask into an array of patterns (e.g., "*.cs|*.xaml")
+# Convert -Mask glob-style input into proper regex strings
 $patterns = @()
 if ($Mask) {
-    $patterns = $Mask -split '\|'
+    $patterns = ($Mask -split '\|') | ForEach-Object {
+        $escaped = [Regex]::Escape($_)
+        $escaped = $escaped -replace '\\\*', '.*'
+        $escaped = $escaped -replace '\\\?', '.'
+        return "^$escaped$"  # Add anchors for full filename match
+    }
 }
 
 # Directory name exclusion (regex)
@@ -58,8 +64,8 @@ $excludedDirs = @(
 # File name exclusion (regex or exact match)
 $excludedFiles = @(
     '.*\.dll$', '.*\.exe$', '.*\.pdb$', '.*\.cache$', '.*\.pdf',
-    '.*\.log$', '.*\.csproj$', '.*\.sln$', '.*\.user$', '.*\.suo$',
-    '^\.DS_Store$', '.*\.tmp$', '.*\.bak$', '.*\.g\.cs$', '.*\.AssemblyInfo\.cs$'
+    '.*\.log$', '.*\.sln$', '.*\.user$', '.*\.suo$', '^\.DS_Store$',
+    '.*\.tmp$', '.*\.bak$', '.*\.g\.cs$', '.*\.AssemblyInfo\.cs$'
 )
 
 # Helper to test for binary content
@@ -100,11 +106,11 @@ Get-ChildItem -Path $resolvedPath -Recurse -File -Force:$Hidden | ForEach-Object
     # Skip binary files
     if (Is-BinaryFile $fullPath) { return }
 
-    # Apply file mask if specified
+    # Apply escaped regex masks
     if ($patterns.Count -gt 0) {
         $matched = $false
         foreach ($pattern in $patterns) {
-            if ($file.Name -like $pattern) {
+            if ($file.Name -imatch $pattern) {
                 $matched = $true
                 break
             }

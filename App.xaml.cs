@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,7 +35,17 @@ namespace Dn500BD
         /// </summary>
         public App()
         {
-            InitializeComponent();
+            try
+            {
+                Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent(); // Explicitly initializes WinAppSDK
+
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText("error.log", ex.ToString());
+                throw;
+            }
         }
 
         /// <summary>

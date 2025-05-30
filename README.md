@@ -9,7 +9,9 @@
 ### ✅ Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- Windows App Runtime (see [Latest Windows App SDK]https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads))
+- [Latest Windows App SDK](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads)
+	- Choose ``Version 1.7.2 +``
+	- Choose ``Installer (x64) `` (that's the only architecture supported currently)
 - Windows 10 or 11
 
 ## 🏗️ Windows Build & Deployment (WinUI 3)

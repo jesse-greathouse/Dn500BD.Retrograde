@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- MARK BUTTON COLORS -->
+    <SolidColorBrush x:Key="MarkRedBase" Color="#D20000" />
+    <SolidColorBrush x:Key="MarkBlueBase" Color="#0021C5" />
+    <SolidColorBrush x:Key="MarkGreenBase" Color="#0B8700" />
+    <SolidColorBrush x:Key="MarkYellowBase" Color="#D0C900" />
+
+    <!-- Outer gradient background -->
+    <LinearGradientBrush x:Key="OuterGradientBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#626262" Offset="0" />
+        <GradientStop Color="#263025" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- Pressed-state gradient (colors reversed) -->
+    <LinearGradientBrush x:Key="OuterGradientPressedBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#263025" Offset="0" />
+        <GradientStop Color="#626262" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- Default radial fill -->
+    <RadialGradientBrush x:Key="InnerDiamondBrush"
+                         GradientOrigin="0.5,0.5"
+                         Center="0.5,0.5"
+                         RadiusX="0.7"
+                         RadiusY="0.7">
+        <GradientStop Color="#B0B0B0" Offset="0.0" />
+        <GradientStop Color="#D0D0D0" Offset="1.0" />
+    </RadialGradientBrush>
+
+    <!-- Hover solid fill -->
+    <SolidColorBrush x:Key="InnerDiamondHoverBrush" Color="#D0D0D0" />
+
+    <!-- HOVER GRADIENT (brighter center) -->
+    <RadialGradientBrush x:Key="MarkHoverOverlay"
+                     GradientOrigin="0.5,0.5"
+                     Center="0.5,0.5"
+                     RadiusX="0.8"
+                     RadiusY="0.8">
+        <GradientStop Color="#80FFFFFF" Offset="0.0" />
+        <GradientStop Color="#00FFFFFF" Offset="1.0" />
+    </RadialGradientBrush>
+
+    <!-- PRESSED GRADIENT (darker center) -->
+    <RadialGradientBrush x:Key="MarkPressedOverlay"
+                     GradientOrigin="0.5,0.5"
+                     Center="0.5,0.5"
+                     RadiusX="0.8"
+                     RadiusY="0.8">
+        <GradientStop Color="#4D626262" Offset="0.0" />
+        <GradientStop Color="#00626262" Offset="1.0" />
+    </RadialGradientBrush>
+
+    <!-- Pressed solid fill -->
+    <SolidColorBrush x:Key="InnerDiamondPressedBrush" Color="#A0A0A0" />
+
+    <!-- Border stroke -->
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#F8F8F8" Opacity="0.81" />
+
+    <Style x:Key="RetroBaseButton" TargetType="Button">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}" />
+    </Style>
+
+    <!-- Style with visual states -->
+    <Style x:Key="RetroSquareButton" TargetType="Button" BasedOn="{StaticResource RetroBaseButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+                        <Border x:Name="OuterBorder"
+                            Background="{StaticResource OuterGradientBrush}"
+                            BorderBrush="{StaticResource ButtonBorderBrush}"
+                            BorderThickness="2">
+                            <Grid>
+                                <Rectangle x:Name="InnerSquare"
+                                           Width="30"
+                                           Height="30"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Fill="{StaticResource InnerDiamondBrush}">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform x:Name="PressedScale" ScaleX="1" ScaleY="1" />
+                                            <TranslateTransform x:Name="PressedOffset" X="0" Y="0" />
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                            </Grid>
+                        </Border>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+
+                                <VisualState x:Name="Normal" />
+
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InnerSquare"
+                                                                       Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource InnerDiamondHoverBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <!-- Simulate inset by darkening and slightly scaling -->
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OuterBorder" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource OuterGradientPressedBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="PressedScale"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             To="0.95" Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedScale"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             To="0.95" Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedOffset"
+                                             Storyboard.TargetProperty="X"
+                                             To="1" Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedOffset"
+                                             Storyboard.TargetProperty="Y"
+                                             To="1" Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- MARK BUTTON TEMPLATE -->
+    <Style x:Key="MarkButton" TargetType="Button" BasedOn="{StaticResource RetroBaseButton}">
+        <Setter Property="Width" Value="34" />
+        <Setter Property="Height" Value="34" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+                        <!-- Outer border -->
+                        <Border
+                        CornerRadius="0"
+                        BorderThickness="2"
+                        BorderBrush="{StaticResource ButtonBorderBrush}">
+                            <Grid>
+                                <!-- Base fill, bindable via Background -->
+                                <Rectangle x:Name="BaseFill"
+                                       Fill="{TemplateBinding Background}"
+                                       Width="30"
+                                       Height="30"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+
+                                <!-- Dynamic overlay -->
+                                <Rectangle x:Name="Overlay"
+                                       Width="30"
+                                       Height="30"
+                                       Fill="Transparent"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+
+                                <VisualState x:Name="Normal" />
+
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Overlay"
+                                                                   Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                            Value="{StaticResource MarkHoverOverlay}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Overlay"
+                                                                   Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                            Value="{StaticResource MarkPressedOverlay}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BaseFill"
+                                                                   Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0.4" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

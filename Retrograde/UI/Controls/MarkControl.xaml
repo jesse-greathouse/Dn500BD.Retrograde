@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Dn500BD.Retrograde.UI.Controls.MarkControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Dn500BD.Retrograde.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkRedBase}" />
+        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkBlueBase}" />
+        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkGreenBase}" />
+        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkYellowBase}" />
+    </Grid>
+</UserControl>

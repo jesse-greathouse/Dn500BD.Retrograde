@@ -10,7 +10,7 @@
   <Identity
     Name="66fbd82e-e17c-42ed-a5d1-e8297a683fb5"
     Publisher="CN=jessegreathouse"
-    Version="1.0.0.0" />
+    Version="0.5.3.0" />
 
   <mp:PhoneIdentity PhoneProductId="66fbd82e-e17c-42ed-a5d1-e8297a683fb5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

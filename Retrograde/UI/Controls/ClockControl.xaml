@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Dn500BD.Retrograde.UI.Controls.ClockControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Dn500BD.Retrograde.UI.Controls">
+
+    <StackPanel>
+        <Button
+            Height="50"
+            Width="50"
+            Style="{StaticResource RetroSquareButton}" />
+
+        <TextBlock
+            Text="CLOCK"
+            FontFamily="{StaticResource RetroFontBold}"
+            FontSize="{StaticResource FontSizeMedium}" />
+    </StackPanel>
+</UserControl>

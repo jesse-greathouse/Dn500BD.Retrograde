@@ -24,16 +24,20 @@ namespace Dn500BD.Retrograde;
 
 public sealed partial class UnitControllerWindow : Window
 {
-    public AppWindow? AppWindow { get; private set; }
     private readonly string comPort;
+
+    public string PositionLabel { get; } = "00:00";
 
     public UnitControllerWindow(string port)
     {
         this.InitializeComponent();
         comPort = port;
-        HeaderText.Text = $"Controlling device on {comPort}";
 
-        WindowHelpers.SetWindowSize(this, 1000, 600);
+        this.Activated += (_, _) =>
+        {
+            WindowHelpers.SetWindowSize(this, 1000, 600);
+            WindowHelpers.CenterOnScreen(this);
+        };
     }
 
     public void CenterOnScreen()

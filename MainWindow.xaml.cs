@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -82,7 +83,7 @@ namespace Dn500BD.Retrograde
             }
             catch (Exception ex)
             {
-                // Optional: Log or show error
+                Debug.WriteLine($"COM port enumeration failed: {ex.Message}");
                 ComPortComboBox.ItemsSource = new[] { "Error retrieving COM ports" };
             }
         }

@@ -60,12 +60,16 @@
     <!-- Border stroke -->
     <SolidColorBrush x:Key="ButtonBorderBrush" Color="#F8F8F8" Opacity="0.81" />
 
-    <!-- Style with visual states -->
-    <Style x:Key="RetroSquareButton" TargetType="Button">
+    <Style x:Key="RetroBaseButton" TargetType="Button">
         <Setter Property="Padding" Value="0" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}" />
+    </Style>
+
+    <!-- Style with visual states -->
+    <Style x:Key="RetroSquareButton" TargetType="Button" BasedOn="{StaticResource RetroBaseButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -112,17 +116,17 @@
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource OuterGradientPressedBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetName="PressedScale"
-                                                         Storyboard.TargetProperty="ScaleX"
-                                                         To="0.95" Duration="0:0:0.05" />
+                                             Storyboard.TargetProperty="ScaleX"
+                                             To="0.95" Duration="0:0:0.15" />
                                         <DoubleAnimation Storyboard.TargetName="PressedScale"
-                                                         Storyboard.TargetProperty="ScaleY"
-                                                         To="0.95" Duration="0:0:0.05" />
+                                             Storyboard.TargetProperty="ScaleY"
+                                             To="0.95" Duration="0:0:0.15" />
                                         <DoubleAnimation Storyboard.TargetName="PressedOffset"
-                                                         Storyboard.TargetProperty="X"
-                                                         To="1" Duration="0:0:0.05" />
+                                             Storyboard.TargetProperty="X"
+                                             To="1" Duration="0:0:0.15" />
                                         <DoubleAnimation Storyboard.TargetName="PressedOffset"
-                                                         Storyboard.TargetProperty="Y"
-                                                         To="1" Duration="0:0:0.05" />
+                                             Storyboard.TargetProperty="Y"
+                                             To="1" Duration="0:0:0.15" />
                                     </Storyboard>
                                 </VisualState>
 
@@ -136,13 +140,9 @@
     </Style>
 
     <!-- MARK BUTTON TEMPLATE -->
-    <Style x:Key="MarkButton" TargetType="Button">
+    <Style x:Key="MarkButton" TargetType="Button" BasedOn="{StaticResource RetroBaseButton}">
         <Setter Property="Width" Value="34" />
         <Setter Property="Height" Value="34" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

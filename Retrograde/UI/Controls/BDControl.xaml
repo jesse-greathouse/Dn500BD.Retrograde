@@ -9,6 +9,6 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <!-- TODO: Implement BD control layout -->
     </Grid>
 </UserControl>

@@ -141,7 +141,16 @@
                                     </Storyboard>
                                 </VisualState>
 
-                                <VisualState x:Name="Disabled" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="OuterBorder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0.4" Duration="0:0:0" />
+                                        <DoubleAnimation Storyboard.TargetName="InnerSquare"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0.4" Duration="0:0:0" />
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>

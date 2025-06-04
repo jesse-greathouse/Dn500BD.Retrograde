@@ -37,6 +37,8 @@ public sealed partial class UnitControllerWindow : Window
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar); // AppTitleBar is the Grid named in the XAML
 
+        WindowHelpers.ForceDarkTitleBarColors(this);
+
         Activated += (_, _) =>
         {
             WindowHelpers.SetWindowSize(this, 1020, 620);

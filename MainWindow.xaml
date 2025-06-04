@@ -29,7 +29,7 @@
 
                 <Rectangle Width="20" Fill="Transparent" />
 
-                <MenuBar VerticalAlignment="Center">
+                <MenuBar VerticalAlignment="Center" IsTabStop="True">
                     <MenuBarItem Title="File">
                         <MenuFlyoutItem Text="Exit" Click="OnExitClick"/>
                     </MenuBarItem>
@@ -43,8 +43,8 @@
         <!-- Main Content -->
         <StackPanel Grid.Row="1" Padding="20" Spacing="12">
             <TextBlock Text="Select COM Port:" FontWeight="Bold"/>
-            <ComboBox x:Name="ComPortComboBox" Width="300" />
-            <Button Content="Open Controller" Width="150" Click="OnOpenControllerClick"/>
+            <ComboBox x:Name="ComPortComboBox" Width="300" IsTabStop="True" />
+            <Button Content="Open Controller" Width="150" Click="OnOpenControllerClick" IsTabStop="True" />
         </StackPanel>
     </Grid>
 </Window>

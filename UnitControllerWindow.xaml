@@ -26,7 +26,7 @@
                 <Rectangle Width="20" Fill="Transparent" />
 
                 <!-- Menu Bar -->
-                <MenuBar VerticalAlignment="Center">
+                <MenuBar VerticalAlignment="Center" IsTabStop="True">
                     <MenuBarItem Title="File">
                         <MenuFlyoutItem Text="New" />
                         <MenuFlyoutItem Text="Open..." />
@@ -40,7 +40,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="RootGrid" Margin="0,48,0,0">
+        <Grid x:Name="RootGrid" Margin="0,48,0,0" IsTabStop="False">
             <controls:ClockControl
                 Style="{StaticResource RetroControl}"
                 Width="50"

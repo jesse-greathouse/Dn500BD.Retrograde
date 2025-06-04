@@ -10,6 +10,7 @@
         <ResourceDictionary Source="Text.xaml" />
         <ResourceDictionary Source="ViewBox.xaml" />
         <ResourceDictionary Source="Layout.xaml" />
+        <ResourceDictionary Source="Window.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

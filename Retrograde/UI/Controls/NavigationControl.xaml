@@ -8,7 +8,180 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <!-- TODO: Implement navigation control layout -->
+    <Grid Width="200" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="72" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="72" />
+        </Grid.RowDefinitions>
+
+        <!-- Top Segment (bottom-aligned content) -->
+        <Grid Grid.Row="0" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: HOME Button Group -->
+            <StackPanel Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Spacing="2"
+                Margin="0,0,0,10" >
+                <TextBlock Text="HOME"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    TextAlignment="Center"
+                    HorizontalAlignment="Center" />
+                <Button Style="{StaticResource RetroSquareButton}"
+                    HorizontalAlignment="Center"
+                    Width="30"
+                    Height="30" />
+            </StackPanel>
+
+            <!-- Middle: UP Triangle Button -->
+            <Button Grid.Column="1"
+                Style="{StaticResource RetroSquareButton}"
+                Width="60"
+                Height="60"
+                Margin="8,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom">
+                <TextBlock Text="△"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource DarkTextBold}"
+                   FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+
+            <!-- Right: SETUP Button Group -->
+            <StackPanel Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Spacing="2"
+                Margin="0,0,0,10" >
+                <TextBlock Text="SETUP"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    TextAlignment="Center"
+                    HorizontalAlignment="Center" />
+                <Button Style="{StaticResource RetroSquareButton}"
+                    HorizontalAlignment="Center"
+                    Width="30"
+                    Height="30" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Middle Segment (top-aligned content) -->
+        <Grid Grid.Row="1" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Arrow Button -->
+            <Button Grid.Column="0"
+                Style="{StaticResource RetroSquareButton}"
+                Width="60"
+                Height="60"
+                HorizontalAlignment="Right">
+                <TextBlock Text="◁"
+                   Margin="0,4,4,0"
+                   Style="{StaticResource DarkTextBold}"
+                   FontSize="{StaticResource FontSizeXLarge}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center" />
+            </Button>
+
+            <!-- OK Button -->
+            <Button Grid.Column="1"
+                Style="{StaticResource RetroSquareButton}"
+                Width="60"
+                Height="60"
+                Margin="0"
+                HorizontalAlignment="Center">
+                <TextBlock Text="OK"
+                   Margin="0,2,0,0"
+                   Style="{StaticResource DarkTextBold}"
+                   FontSize="{StaticResource FontSizeLarge}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center" />
+            </Button>
+
+            <!-- Right Arrow Button -->
+            <Button Grid.Column="2"
+                Style="{StaticResource RetroSquareButton}"
+                Width="60"
+                Height="60"
+                HorizontalAlignment="Left">
+                <TextBlock Text="▷"
+                   Margin="4,4,0,0"
+                   Style="{StaticResource DarkTextBold}"
+                   FontSize="{StaticResource FontSizeXLarge}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center" />
+            </Button>
+        </Grid>
+
+        <!-- Bottom Segment (top-aligned content) -->
+        <Grid Grid.Row="2" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: RETURN Button Group -->
+            <StackPanel Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Spacing="2"
+                Margin="0,10,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    HorizontalAlignment="Center"
+                    Width="30"
+                    Height="30" />
+                <TextBlock Text="RETURN"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    TextAlignment="Center"
+                    HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Middle: DOWN Triangle Button -->
+            <Button Grid.Column="1"
+                Style="{StaticResource RetroSquareButton}"
+                Width="60"
+                Height="60"
+                Margin="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+                <TextBlock Text="▽"
+                   Margin="0,8,0,0"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource DarkTextBold}"
+                   FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+
+            <!-- Right: CLEAR Button Group -->
+            <StackPanel Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Spacing="2"
+                Margin="0,10,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    HorizontalAlignment="Center"
+                    Width="30"
+                    Height="30" />
+                <TextBlock Text="CLEAR"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    TextAlignment="Center"
+                    HorizontalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </UserControl>
+

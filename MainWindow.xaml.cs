@@ -6,6 +6,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Dn500BD.Retrograde.UI;
+using Microsoft.UI;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
@@ -20,6 +21,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics;
 using Windows.System;
+using Windows.UI;
 using WinRT;
 using WinRT.Interop;
 
@@ -35,6 +37,11 @@ namespace Dn500BD.Retrograde
         {
             this.InitializeComponent();
 
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
+
+            WindowHelpers.ForceDarkTitleBarColors(this);
+
             // Apply Mica effect if supported
             TrySetMicaBackdrop();
 
@@ -47,12 +54,15 @@ namespace Dn500BD.Retrograde
 
         private void TrySetMicaBackdrop()
         {
+            var darkBackground = new SolidColorBrush(ColorHelper.FromArgb(255, 18, 18, 18));
+            RootGrid.Background = darkBackground;
+
             if (MicaController.IsSupported())
             {
                 _backdropConfig = new SystemBackdropConfiguration
                 {
                     IsInputActive = true,
-                    Theme = SystemBackdropTheme.Default
+                    Theme = SystemBackdropTheme.Dark
                 };
 
                 _micaController = new MicaController();
@@ -64,11 +74,6 @@ namespace Dn500BD.Retrograde
                 {
                     _backdropConfig.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
                 };
-            }
-            else
-            {
-                // Fallback visual treatment
-                RootGrid.Background = new SolidColorBrush(Microsoft.UI.Colors.LightGray);
             }
         }
 
@@ -106,6 +111,11 @@ namespace Dn500BD.Retrograde
                 controllerWindow.Activate();
                 controllerWindow.CenterOnScreen();
             }
+        }
+
+        private void OnExitClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

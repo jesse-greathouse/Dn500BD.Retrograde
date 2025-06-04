@@ -9,6 +9,27 @@
     mc:Ignorable="d">
 
     <Grid>
-        <!-- TODO: Implement random playback control UI -->
+        <StackPanel Spacing="4" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <!-- Button Group -->
+            <StackPanel Spacing="2" HorizontalAlignment="Center">
+                <Button Style="{StaticResource RetroSquareButton}" Width="50" Height="50" />
+                <TextBlock Text="RANDOM"
+                       Style="{StaticResource LightText}"
+                       FontSize="{StaticResource FontSizeMedium}"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Percentage ViewBox -->
+            <ContentControl Style="{StaticResource RetroViewBox}"
+                        Width="50"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center">
+                <TextBlock Text="100%"
+                       Style="{StaticResource DarkTextBold}"
+                       FontSize="{StaticResource FontSizeMedium}" />
+            </ContentControl>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -8,7 +8,605 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <!-- TODO: Populate with button grid for command dispatch -->
+    <Grid Width="230" Height="573">
+        <!-- Total height: 30 + 454 + 53 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="454" />
+            <RowDefinition Height="53" />
+        </Grid.RowDefinitions>
+
+        <!-- Top segment -->
+        <ContentControl Grid.Row="0"
+            Style="{StaticResource RetroViewBox}"
+            Width="230"
+            Height="30"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            HorizontalContentAlignment="Center">
+            <!-- Force override -->
+            <Grid HorizontalAlignment="Center">
+                <TextBlock
+                    Text="LAST COMMAND"
+                    FontFamily="{StaticResource RetroFontBold}"
+                    FontSize="{StaticResource FontSizeLarge}"
+                    Style="{StaticResource DarkText}"
+                    CharacterSpacing="{StaticResource KerningWide}"
+                    TextAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center" />
+            </Grid>
+        </ContentControl>
+
+        <!-- Middle segment -->
+        <StackPanel Grid.Row="1"
+            Width="230"
+            Height="454"
+            Orientation="Vertical"
+            Spacing="0">
+
+            <!-- Command Row 1 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 2 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 3 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 4 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 5 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 6 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 7 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 8 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 9 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 10 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 11 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 12 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 13 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 14 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 15 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+            <!-- Command Row 16 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="28">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="28"
+                    HorizontalAlignment="Left" />
+                <ContentControl Style="{StaticResource RetroViewBox}"
+                    Width="200"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="COMMAND"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="4,0,0,0" />
+                        <TextBlock Text="(%)"
+                           Style="{StaticResource DarkText}"
+                           FontSize="{StaticResource FontSizeMedium}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Grid.Column="1"
+                           Margin="0,0,4,0" />
+                    </Grid>
+                </ContentControl>
+            </StackPanel>
+
+        </StackPanel>
+
+        <!-- Bottom segment -->
+        <Grid Grid.Row="2" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- PREV Button Group (Left) -->
+            <StackPanel Grid.Column="0" 
+                        HorizontalAlignment="Left" 
+                        Spacing="2"
+                        Width="34"
+                        Margin="14,0,0,0" >
+                <Button Style="{StaticResource RetroSquareButton}" Width="30" Height="30" />
+                <TextBlock Text="PREV"
+                   Style="{StaticResource LightText}"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- SELECT Button Group (Center) -->
+            <StackPanel Grid.Column="1" 
+                        HorizontalAlignment="Center" 
+                        Spacing="2"
+                        Width="60" >
+                <Button Style="{StaticResource RetroSquareButton}" HorizontalAlignment="Center" Width="30" Height="30" />
+                <TextBlock Text="SELECT"
+                   Style="{StaticResource LightText}"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- NEXT Button Group (Right) -->
+            <StackPanel Grid.Column="2" 
+                        HorizontalAlignment="Right" 
+                        Spacing="2"
+                        Width="34"
+                        Margin="0,0,14,0" >
+                <Button Style="{StaticResource RetroSquareButton}" Width="30" Height="30" />
+                <TextBlock Text="NEXT"
+                   Style="{StaticResource LightText}"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

@@ -8,7 +8,247 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <!-- TODO: Implement BD control layout -->
+    <Grid Width="220" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53" />
+            <RowDefinition Height="74" />
+            <RowDefinition Height="74" />
+            <RowDefinition Height="132" />
+        </Grid.RowDefinitions>
+
+        <!-- Row 1: Top-aligned content -->
+        <Grid Grid.Row="0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="110" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Button Group: REVERSE -->
+            <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Spacing="2"
+                    Margin="0,2,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Center">
+                    <TextBlock Text="≪"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Style="{StaticResource DarkTextBold}"
+                       Margin="0,0,2,2"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+                </Button>
+                <TextBlock Text="REVERSE"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   Style="{StaticResource LightText}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- Right Button Group: FORWARD -->
+            <StackPanel Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Spacing="2"
+                    Margin="0,2,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Center">
+                    <TextBlock Text="≫"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Style="{StaticResource DarkTextBold}"
+                       Margin="0,0,0,2"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+                </Button>
+                <TextBlock Text="FORWARD"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   Style="{StaticResource LightText}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Row 2: Top-aligned content -->
+        <Grid Grid.Row="1" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="73" />
+                <ColumnDefinition Width="74" />
+                <ColumnDefinition Width="73" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Button Group: STOP -->
+            <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Spacing="2"
+                    Margin="0,6,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="50"
+                    Height="50"
+                    HorizontalAlignment="Center">
+                    <TextBlock Text="□"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Style="{StaticResource DarkTextBold}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+                </Button>
+                <TextBlock Text="STOP"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   Style="{StaticResource LightText}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- Middle Button Group: PAUSE -->
+            <StackPanel Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Spacing="2"
+                    Margin="0,6,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="50"
+                    Height="50"
+                    HorizontalAlignment="Center">
+                    <TextBlock Text="‖"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Style="{StaticResource DarkTextBold}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+                </Button>
+                <TextBlock Text="PAUSE"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   Style="{StaticResource LightText}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- Right Button Group: PLAY -->
+            <StackPanel Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Spacing="2"
+                Margin="0,6,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="50"
+                    Height="50"
+                    HorizontalAlignment="Center">
+                    <TextBlock Text="▷"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Style="{StaticResource DarkTextBold}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+                </Button>
+                <TextBlock Text="PLAY"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   Style="{StaticResource LightText}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Row 3: Top-aligned content -->
+        <Grid Grid.Row="2" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="73" />
+                <ColumnDefinition Width="74" />
+                <ColumnDefinition Width="73" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Button Group: PREV -->
+            <StackPanel Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Spacing="2"
+                Margin="0,6,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                Width="50"
+                Height="50"
+                HorizontalAlignment="Center">
+                    <TextBlock Text="⟸"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Style="{StaticResource DarkTextBold}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+                </Button>
+                <TextBlock Text="PREV"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   Style="{StaticResource LightText}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- (Middle column intentionally left blank) -->
+
+            <!-- Right Button Group: NEXT -->
+            <StackPanel Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Spacing="2"
+                Margin="0,6,0,0">
+                <Button Style="{StaticResource RetroSquareButton}"
+                Width="50"
+                Height="50"
+                HorizontalAlignment="Center">
+                    <TextBlock Text="⟹"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Style="{StaticResource DarkTextBold}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+                </Button>
+                <TextBlock Text="NEXT"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   Style="{StaticResource LightText}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Row 4: Bottom-aligned content -->
+        <Grid Grid.Row="3" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="110" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Button Group: REPEAT -->
+            <StackPanel Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Spacing="0"
+                Margin="0,0,0,36">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="100"
+                    Height="50"
+                    HorizontalAlignment="Center" />
+                <TextBlock Text="REPEAT"
+                   Style="{StaticResource LightText}"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   TextAlignment="Center"
+                   HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Right Button Group: A-B -->
+            <StackPanel Grid.Column="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Spacing="0"
+                Margin="0,0,0,36">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="100"
+                    Height="50"
+                    HorizontalAlignment="Center" />
+                <TextBlock Text="A-B"
+                   Style="{StaticResource LightText}"
+                   FontSize="{StaticResource FontSizeMedium}"
+                   TextAlignment="Center"
+                   HorizontalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </UserControl>
+

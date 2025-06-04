@@ -9,9 +9,35 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkRedBase}" />
-        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkBlueBase}" />
-        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkGreenBase}" />
-        <Button Style="{StaticResource MarkButton}" Background="{StaticResource MarkYellowBase}" />
+        <StackPanel Spacing="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+
+            <!-- MARK Button Group -->
+            <StackPanel Spacing="2" HorizontalAlignment="Center">
+                <Button Style="{StaticResource RetroSquareButton}"
+                    Width="50"
+                    Height="50" />
+                <TextBlock Text="MARK"
+                       Style="{StaticResource LightText}"
+                       FontSize="{StaticResource FontSizeMedium}"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Colored Mark Buttons (now centered) -->
+            <Button Style="{StaticResource MarkButton}"
+                Background="{StaticResource MarkRedBase}"
+                HorizontalAlignment="Center" />
+            <Button Style="{StaticResource MarkButton}"
+                Background="{StaticResource MarkBlueBase}"
+                HorizontalAlignment="Center" />
+            <Button Style="{StaticResource MarkButton}"
+                Background="{StaticResource MarkGreenBase}"
+                HorizontalAlignment="Center" />
+            <Button Style="{StaticResource MarkButton}"
+                Background="{StaticResource MarkYellowBase}"
+                HorizontalAlignment="Center" />
+        </StackPanel>
     </Grid>
 </UserControl>

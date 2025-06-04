@@ -5,16 +5,178 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Dn500BD.Retrograde.UI.Controls">
 
-    <ContentControl Style="{StaticResource RetroViewBox}" Width="100">
-        <TextBlock
-            Width="100"
-            FontFamily="{StaticResource RetroFontBold}"
-            FontSize="{StaticResource FontSizeLarge}"
-            Text="00:00"
-            Style="{StaticResource DarkText}"
-            CharacterSpacing="{StaticResource KerningWide}"
-            TextAlignment="Center"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center" />
-    </ContentControl>
+    <Grid Width="345" Height="460" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="324" />
+            <RowDefinition Height="73" />
+        </Grid.RowDefinitions>
+
+        <!-- Top region -->
+        <Grid Grid.Row="0"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              Width="320">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: PREV -->
+            <StackPanel Grid.Column="0" 
+                        Width="50" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Center"
+                        Margin="30,0,0,0">
+                <Button Style="{StaticResource RetroSquareButton}" Width="30" Height="30" HorizontalAlignment="Center" />
+                <TextBlock
+                    Text="PREV"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- Center: Timecode ViewBox -->
+            <ContentControl Grid.Column="1"
+                    Style="{StaticResource RetroViewBox}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Width="100">
+                <TextBlock
+                    Width="100"
+                    FontFamily="{StaticResource RetroFontBold}"
+                    FontSize="{StaticResource FontSizeLarge}"
+                    Text="00:00"
+                    Style="{StaticResource DarkText}"
+                    CharacterSpacing="{StaticResource KerningWide}"
+                    TextAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center" />
+            </ContentControl>
+
+            <!-- Right: NEXT -->
+            <StackPanel Grid.Column="2" 
+                        Width="50" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Center"
+                        Margin="0,0,30,0">
+                <Button Style="{StaticResource RetroSquareButton}" Width="30" Height="30" HorizontalAlignment="Center" />
+                <TextBlock
+                    Text="NEXT"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    Margin="0,6,0,0"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Middle region -->
+        <Grid Grid.Row="1"
+          Width="320" Height="320"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Top"
+          Margin="12.5,2,12.5,2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Buttons 1–16 -->
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="0" Grid.Column="0" Margin="0">
+                <TextBlock Text="1" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="0" Grid.Column="1" Margin="0">
+                <TextBlock Text="2" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="0" Grid.Column="2" Margin="0">
+                <TextBlock Text="3" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="0" Grid.Column="3" Margin="0">
+                <TextBlock Text="4" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="1" Grid.Column="0" Margin="0">
+                <TextBlock Text="5" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="1" Grid.Column="1" Margin="0">
+                <TextBlock Text="6" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="1" Grid.Column="2" Margin="0">
+                <TextBlock Text="7" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="1" Grid.Column="3" Margin="0">
+                <TextBlock Text="8" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="2" Grid.Column="0" Margin="0">
+                <TextBlock Text="9" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="2" Grid.Column="1" Margin="0">
+                <TextBlock Text="10" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="2" Grid.Column="2" Margin="0">
+                <TextBlock Text="11" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="2" Grid.Column="3" Margin="0">
+                <TextBlock Text="12" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="3" Grid.Column="0" Margin="0">
+                <TextBlock Text="13" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="3" Grid.Column="1" Margin="0">
+                <TextBlock Text="14" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="3" Grid.Column="2" Margin="0">
+                <TextBlock Text="15" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+            <Button Style="{StaticResource RetroSquareButton}" Width="80" Height="80" Grid.Row="3" Grid.Column="3" Margin="0">
+                <TextBlock Text="16" Style="{StaticResource DarkTextBold}" FontSize="{StaticResource FontSizeXLarge}" />
+            </Button>
+        </Grid>
+
+        <!-- Bottom region -->
+        <Grid Grid.Row="2" Margin="0,2,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Return Button Group (Left) -->
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" Spacing="2">
+                <Button Style="{StaticResource RetroSquareButton}" Width="50" Height="50" />
+                <TextBlock Text="RETURN"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center" />
+            </StackPanel>
+
+            <!-- Spacer in center -->
+            <!-- Empty ColumnDefinition[1] takes up the remaining space -->
+
+            <!-- Play/Pause Button Group (Right) -->
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" Spacing="2">
+                <Button Style="{StaticResource RetroSquareButton}" Width="130" Height="50" />
+                <TextBlock Text="PLAY / PAUSE"
+                    Style="{StaticResource LightText}"
+                    FontSize="{StaticResource FontSizeMedium}"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
+    </Grid>
 </UserControl>

@@ -27,6 +27,7 @@
     <None Remove="Style\Styles.xaml" />
     <None Remove="Style\Text.xaml" />
     <None Remove="Style\ViewBox.xaml" />
+    <None Remove="Style\Window.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -101,6 +102,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Style\Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Retrograde\UI\Controls\BDControl.xaml">

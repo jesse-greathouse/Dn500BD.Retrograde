@@ -9,4 +9,11 @@
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
+    <!-- StackPanel Style for PhraseSelectorControl -->
+    <Style x:Key="PhraseSelectorStackPanel" TargetType="StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
 </ResourceDictionary>

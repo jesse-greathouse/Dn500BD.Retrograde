@@ -7,47 +7,81 @@
     xmlns:controls="using:Dn500BD.Retrograde.UI.Controls"
     Title="BD Unit Controller">
 
-    <Grid x:Name="RootGrid">
-        <controls:ClockControl
-            Style="{StaticResource RetroControl}"
-            Width="50"
-            Height="73"
-            Margin="20,20,0,0" />
+    <Grid>
+        <!-- Custom Title Bar Region -->
+        <Grid x:Name="AppTitleBar"
+            Height="48"
+            VerticalAlignment="Top"
+            Background="{ThemeResource WindowCaptionBackground}">
+            <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center"
+                Margin="12,0,0,0">
+                <!-- App Title -->
+                <TextBlock Text="BD Unit Controller"
+                   FontSize="18"
+                   VerticalAlignment="Center"
+                   Foreground="{ThemeResource WindowCaptionForeground}" />
 
-        <controls:PhraseSelectorControl
-            Style="{StaticResource RetroControl}"
-            Width="345"
-            Height="493"
-            Margin="15,100,0,0" />
+                <!-- Spacer -->
+                <Rectangle Width="20" Fill="Transparent" />
 
-        <controls:CommandsControl
-            Style="{StaticResource RetroControl}"
-            Width="230"
-            Height="573"
-            Margin="410,20,0,0" />
+                <!-- Menu Bar -->
+                <MenuBar VerticalAlignment="Center" IsTabStop="True">
+                    <MenuBarItem Title="File">
+                        <MenuFlyoutItem Text="New" />
+                        <MenuFlyoutItem Text="Open..." />
+                        <MenuFlyoutItem Text="Save" />
+                        <MenuFlyoutItem Text="Exit" Click="OnExitClick"/>
+                    </MenuBarItem>
+                    <MenuBarItem Title="Help">
+                        <MenuFlyoutItem Text="About" />
+                    </MenuBarItem>
+                </MenuBar>
+            </StackPanel>
+        </Grid>
 
-        <controls:RandomControl
-            Style="{StaticResource RetroControl}"
-            Width="70"
-            Height="110"
-            Margin="680,20,0,0" />
+        <Grid x:Name="RootGrid" Margin="0,48,0,0" IsTabStop="False">
+            <controls:ClockControl
+                Style="{StaticResource RetroControl}"
+                Width="50"
+                Height="73"
+                Margin="20,20,0,0" />
 
-        <controls:MarkControl
+            <controls:PhraseSelectorControl
             Style="{StaticResource RetroControl}"
-            Width="70"
-            Height="260"
-            Margin="680,200,0,0" />
+                Width="345"
+                Height="493"
+                Margin="20,100,0,0" />
 
-        <controls:NavigationControl
-            Style="{StaticResource RetroControl}"
-            Width="200"
-            Height="203"
-            Margin="780,17,0,0" />
+            <controls:CommandsControl
+                Style="{StaticResource RetroControl}"
+                Width="230"
+                Height="573"
+                Margin="410,20,0,0" />
 
-        <controls:BDControl
-            Style="{StaticResource RetroControl}"
-            Width="220"
-            Height="333"
-            Margin="770,260,0,0" />
+            <controls:RandomControl
+                Style="{StaticResource RetroControl}"
+                Width="70"
+                Height="114"
+                Margin="680,20,0,0" />
+
+            <controls:MarkControl
+                Style="{StaticResource RetroControl}"
+                Width="70"
+                Height="260"
+                Margin="680,200,0,0" />
+
+            <controls:NavigationControl
+                Style="{StaticResource RetroControl}"
+                Width="200"
+                Height="203"
+                Margin="780,17,0,0" />
+
+            <controls:BDControl
+                Style="{StaticResource RetroControl}"
+                Width="220"
+                Height="333"
+                Margin="770,260,0,0" />
+        </Grid>
     </Grid>
 </Window>

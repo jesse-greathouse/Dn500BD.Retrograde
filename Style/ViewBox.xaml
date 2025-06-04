@@ -17,18 +17,19 @@
                         BorderThickness="2"
                         Background="Transparent"
                         Opacity="0.81"
-                        Width="104"
-                        Height="34">
+                        Width="Auto"
+                        Height="Auto">
                         <Grid>
                             <Rectangle
                                 Fill="#C7FB4C"
-                                Width="100"
-                                Height="30"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"/>
                             <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
+                                Margin="0,4,0,0"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Grid>
                     </Border>
                 </ControlTemplate>

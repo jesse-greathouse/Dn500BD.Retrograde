@@ -30,12 +30,16 @@ public sealed partial class UnitControllerWindow : Window
 
     public UnitControllerWindow(string port)
     {
-        this.InitializeComponent();
+        InitializeComponent();
         comPort = port;
 
-        this.Activated += (_, _) =>
+        // Extend content into title bar area
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(AppTitleBar); // AppTitleBar is the Grid named in the XAML
+
+        Activated += (_, _) =>
         {
-            WindowHelpers.SetWindowSize(this, 1000, 600);
+            WindowHelpers.SetWindowSize(this, 1020, 620);
             WindowHelpers.CenterOnScreen(this);
         };
     }
@@ -43,5 +47,9 @@ public sealed partial class UnitControllerWindow : Window
     public void CenterOnScreen()
     {
         WindowHelpers.CenterOnScreen(this);
+    }
+    private void OnExitClick(object sender, RoutedEventArgs e)
+    {
+        this.Close();
     }
 }

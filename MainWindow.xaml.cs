@@ -35,6 +35,9 @@ namespace Dn500BD.Retrograde
         {
             this.InitializeComponent();
 
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
+
             // Apply Mica effect if supported
             TrySetMicaBackdrop();
 
@@ -106,6 +109,11 @@ namespace Dn500BD.Retrograde
                 controllerWindow.Activate();
                 controllerWindow.CenterOnScreen();
             }
+        }
+
+        private void OnExitClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

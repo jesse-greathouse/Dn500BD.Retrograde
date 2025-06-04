@@ -25,6 +25,7 @@
     <!-- Standardized Font Sizes -->
     <x:Double x:Key="FontSizeMedium">14</x:Double>
     <x:Double x:Key="FontSizeLarge">18</x:Double>
+    <x:Double x:Key="FontSizeXLarge">48</x:Double>
 
     <!-- Optional named styles for explicit usage -->
     <Style x:Key="DarkText" TargetType="TextBlock">
@@ -35,6 +36,13 @@
     <Style x:Key="LightText" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource RetroFont}" />
         <Setter Property="Foreground" Value="{StaticResource TextLightBrush}" />
+    </Style>
+
+    <Style x:Key="DarkTextBold" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource RetroFontBold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
 
 </ResourceDictionary>

@@ -70,6 +70,8 @@
 
     <!-- Style with visual states -->
     <Style x:Key="RetroSquareButton" TargetType="Button" BasedOn="{StaticResource RetroBaseButton}">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -80,18 +82,27 @@
                             BorderThickness="2">
                             <Grid>
                                 <Rectangle x:Name="InnerSquare"
-                                           Width="30"
-                                           Height="30"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Fill="{StaticResource InnerDiamondBrush}">
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   Fill="{StaticResource InnerDiamondBrush}"
+                                   RenderTransformOrigin="0.5,0.5">
                                     <Rectangle.RenderTransform>
                                         <TransformGroup>
-                                            <ScaleTransform x:Name="PressedScale" ScaleX="1" ScaleY="1" />
+                                            <ScaleTransform x:Name="PressedScale" ScaleX="0.66" ScaleY="0.66" />
                                             <TranslateTransform x:Name="PressedOffset" X="0" Y="0" />
                                         </TransformGroup>
                                     </Rectangle.RenderTransform>
                                 </Rectangle>
+
+                                <!-- Content layer ABOVE the bevel, using full bindings -->
+                                <ContentPresenter
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    FontFamily="{StaticResource RetroFont}"
+                                    Foreground="{StaticResource TextDarkBrush}"
+                                    Margin="0,2,0,0" />
                             </Grid>
                         </Border>
 
@@ -117,10 +128,10 @@
                                         </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetName="PressedScale"
                                              Storyboard.TargetProperty="ScaleX"
-                                             To="0.95" Duration="0:0:0.15" />
+                                             To="0.6" Duration="0:0:0.15" />
                                         <DoubleAnimation Storyboard.TargetName="PressedScale"
                                              Storyboard.TargetProperty="ScaleY"
-                                             To="0.95" Duration="0:0:0.15" />
+                                             To="0.6" Duration="0:0:0.15" />
                                         <DoubleAnimation Storyboard.TargetName="PressedOffset"
                                              Storyboard.TargetProperty="X"
                                              To="1" Duration="0:0:0.15" />

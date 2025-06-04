@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="Dn500BD.Retrograde.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,7 +6,42 @@
     Title="DN 500BD Retrograde">
 
     <Grid x:Name="RootGrid">
-        <StackPanel Padding="20" Spacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <!-- Title bar -->
+            <RowDefinition Height="*" />
+            <!-- Main content -->
+        </Grid.RowDefinitions>
+
+        <!-- Custom Title Bar -->
+        <Grid x:Name="AppTitleBar"
+              Grid.Row="0"
+              Background="{ThemeResource WindowCaptionBackground}"
+              VerticalAlignment="Top"
+              Height="48">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="12,0,0,0">
+                <TextBlock Text="DN 500BD Retrograde"
+                           FontSize="18"
+                           VerticalAlignment="Center"
+                           Foreground="{ThemeResource WindowCaptionForeground}" />
+
+                <Rectangle Width="20" Fill="Transparent" />
+
+                <MenuBar VerticalAlignment="Center">
+                    <MenuBarItem Title="File">
+                        <MenuFlyoutItem Text="Exit" Click="OnExitClick"/>
+                    </MenuBarItem>
+                    <MenuBarItem Title="Help">
+                        <MenuFlyoutItem Text="About"/>
+                    </MenuBarItem>
+                </MenuBar>
+            </StackPanel>
+        </Grid>
+
+        <!-- Main Content -->
+        <StackPanel Grid.Row="1" Padding="20" Spacing="12">
             <TextBlock Text="Select COM Port:" FontWeight="Bold"/>
             <ComboBox x:Name="ComPortComboBox" Width="300" />
             <Button Content="Open Controller" Width="150" Click="OnOpenControllerClick"/>

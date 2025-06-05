@@ -1,14 +1,16 @@
-﻿using System;
+using System;
+using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Dn500BD.Retrograde.Infra;
 
 public class SerialPortService : ISerialPortService, IDisposable
 {
     private SerialPort? serialPort;
+
+    private const int ResponseTimeoutMs = 300;
 
     public bool IsOpen => serialPort != null && serialPort.IsOpen;
 
@@ -18,7 +20,8 @@ public class SerialPortService : ISerialPortService, IDisposable
 
         serialPort = new SerialPort(portName, baudRate)
         {
-            ReadTimeout = 400
+            ReadTimeout = ResponseTimeoutMs,
+            WriteTimeout = ResponseTimeoutMs
         };
 
         serialPort.Open();
@@ -36,18 +39,16 @@ public class SerialPortService : ISerialPortService, IDisposable
         }
     }
 
-    public async Task<bool> SendCommandAsync(string command, CancellationToken cancellationToken)
+    public bool SendCommand(string command, CancellationToken cancellationToken)
     {
         if (serialPort == null || !serialPort.IsOpen)
             return false;
 
-        var commandBytes = Encoding.ASCII.GetBytes(command);
-
         try
         {
-            await serialPort.BaseStream.WriteAsync(commandBytes.AsMemory(), cancellationToken);
-            await serialPort.BaseStream.FlushAsync(cancellationToken);
-            string _ = await ReadWithTimeoutAsync(cancellationToken);
+            var buffer = Encoding.ASCII.GetBytes(command);
+            using var reg = cancellationToken.Register(() => serialPort?.DiscardOutBuffer());
+            serialPort.Write(buffer, 0, buffer.Length);
             return true;
         }
         catch
@@ -56,41 +57,53 @@ public class SerialPortService : ISerialPortService, IDisposable
         }
     }
 
-    private async Task<string> ReadWithTimeoutAsync(CancellationToken token)
+    public string SendCommandAndRead(string command, CancellationToken cancellationToken)
     {
         if (serialPort == null || !serialPort.IsOpen)
             throw new InvalidOperationException("Serial port is not open.");
 
-        var buffer = new byte[1];
-        var result = new StringBuilder();
+        var buffer = Encoding.ASCII.GetBytes(command);
+        var response = new StringBuilder();
 
-        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(token);
+        using var reg = cancellationToken.Register(() => serialPort?.DiscardInBuffer());
 
-        Task readTask = Task.Run(async () =>
+        try
         {
-            while (!linkedCts.Token.IsCancellationRequested)
+            serialPort.Write(buffer, 0, buffer.Length);
+
+            var deadline = DateTime.UtcNow + TimeSpan.FromMilliseconds(ResponseTimeoutMs);
+
+            while (DateTime.UtcNow < deadline)
             {
+                if (cancellationToken.IsCancellationRequested)
+                    throw new TimeoutException("Cancelled while waiting for response.");
+
                 if (serialPort.BytesToRead > 0)
                 {
-                    int bytesRead = await serialPort.BaseStream.ReadAsync(buffer.AsMemory(0, 1), linkedCts.Token);
-                    if (bytesRead > 0)
-                    {
-                        char received = (char)buffer[0];
-                        if (received == (char)255) break;
-                        result.Append(received);
-                    }
+                    int read = serialPort.ReadByte();
+                    if (read == -1) break;
+
+                    char received = (char)read;
+                    if (received == (char)255) break;
+
+                    response.Append(received);
                 }
                 else
                 {
-                    await Task.Delay(100, linkedCts.Token);
+                    Thread.Sleep(10); // poll delay
                 }
             }
-        }, linkedCts.Token);
 
-        if (await Task.WhenAny(readTask, Task.Delay(3000, linkedCts.Token)) != readTask)
-            throw new TimeoutException("Device did not respond within timeout.");
-
-        return result.ToString();
+            return response.ToString();
+        }
+        catch (TimeoutException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new IOException("Error during SendCommandAndRead", ex);
+        }
     }
 
     public void Dispose()

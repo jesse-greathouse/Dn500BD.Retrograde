@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Dn500BD.Retrograde.Core;
 
 public interface IDenonRemote
 {
-    Task<bool> SendCommandAsync(DenonCommand command);
+    bool SendCommand(DenonCommand command);
+    bool ValidateConnection(CancellationToken token = default);
     IEnumerable<DenonCommand> GetAvailableCommands();
 }

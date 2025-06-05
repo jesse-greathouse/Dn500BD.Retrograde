@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using Dn500BD.Retrograde.Core;
 using Dn500BD.Retrograde.UI;
 using Microsoft.UI;
 using Microsoft.UI.Composition;
@@ -12,16 +11,8 @@ using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Graphics;
-using Windows.System;
-using Windows.UI;
 using WinRT;
 using WinRT.Interop;
 
@@ -31,24 +22,19 @@ namespace Dn500BD.Retrograde
     {
         private MicaController? _micaController;
         private SystemBackdropConfiguration? _backdropConfig;
-        private readonly Dictionary<string, UnitControllerWindow> _controllerWindows = new();
+        private readonly DenonRemoteService _remoteService;
 
-        public MainWindow()
+        public MainWindow(DenonRemoteService remoteService)
         {
             this.InitializeComponent();
+            _remoteService = remoteService;
 
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
-
             WindowHelpers.ForceDarkTitleBarColors(this);
-
-            // Apply Mica effect if supported
             TrySetMicaBackdrop();
 
-            // Populate available COM ports
-            PopulateComPorts();
-
-            // Set window size to 800x640
+            RefreshComPortList();
             WindowHelpers.SetWindowSize(this, 800, 640);
         }
 
@@ -77,14 +63,20 @@ namespace Dn500BD.Retrograde
             }
         }
 
-        private void PopulateComPorts()
+        private void RefreshComPortList()
         {
             try
             {
-                var ports = SerialPort.GetPortNames();
-                ComPortComboBox.ItemsSource = ports;
-                if (ports.Length > 0)
+                var allPorts = SerialPort.GetPortNames().Distinct().OrderBy(x => x).ToList();
+                var connectedPorts = _remoteService.All.Keys;
+                var availablePorts = allPorts.Except(connectedPorts).ToList();
+
+                ComPortComboBox.ItemsSource = availablePorts;
+
+                if (availablePorts.Count > 0)
                     ComPortComboBox.SelectedIndex = 0;
+                else
+                    ComPortComboBox.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -94,27 +86,49 @@ namespace Dn500BD.Retrograde
         }
         private void OnOpenControllerClick(object sender, RoutedEventArgs e)
         {
-            if (ComPortComboBox.SelectedItem is string selectedPort)
+            if (ComPortComboBox.SelectedItem is not string selectedPort)
+                return;
+
+            try
             {
-                if (_controllerWindows.TryGetValue(selectedPort, out var existingWindow))
+                var controller = _remoteService.Connect(selectedPort, new List<Action>
                 {
-                    // Reactivate if already open
-                    existingWindow.Activate();
-                    return;
-                }
+                    () =>
+                    {
+                        try
+                        {
+                            RefreshComPortList();
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"[RefreshComPortList] failed: {ex.Message}");
+                        }
+                    }
+                });
 
-                var controllerWindow = new UnitControllerWindow(selectedPort);
-                _controllerWindows[selectedPort] = controllerWindow;
-
-                controllerWindow.Closed += (_, _) => _controllerWindows.Remove(selectedPort);
-
-                controllerWindow.Activate();
-                controllerWindow.CenterOnScreen();
+                RefreshComPortList();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to open controller for {selectedPort}: {ex.Message}");
+                ContentDialog errorDialog = new()
+                {
+                    Title = "Connection Error",
+                    Content = $"Failed to connect to {selectedPort}.\n\n{ex.Message}",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.Content.XamlRoot
+                };
+                _ = errorDialog.ShowAsync();
             }
         }
 
         private void OnExitClick(object sender, RoutedEventArgs e)
         {
+            foreach (var port in _remoteService.All.Keys.ToList())
+            {
+                _remoteService.Disconnect(port);
+            }
+
             this.Close();
         }
     }

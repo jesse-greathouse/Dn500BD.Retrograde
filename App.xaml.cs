@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Dn500BD.Retrograde;
+using Dn500BD.Retrograde.Core;
+using Dn500BD.Retrograde.Infra;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -17,29 +20,24 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace Dn500BD
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     public partial class App : Application
     {
         private Window? _window;
 
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
+        public static DenonRemoteService RemoteService { get; private set; } = null!;
+
         public App()
         {
             try
             {
                 Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent(); // Explicitly initializes WinAppSDK
 
+                this.UnhandledException += OnUnhandledException;
+
                 InitializeComponent();
+
             }
             catch (Exception ex)
             {
@@ -48,14 +46,26 @@ namespace Dn500BD
             }
         }
 
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            _window = new MainWindow();
+            // Initialize logger and serial factory
+            ILogger logger = LoggerFactory
+                .Create(builder => builder.AddConsole())
+                .CreateLogger("DenonRemote");
+
+            Func<string, ISerialPortService> serialFactory = _ => new SerialPortService();
+
+            // Create the global service instance
+            RemoteService = new DenonRemoteService(logger, serialFactory);
+
+            // Launch MainWindow with service
+            _window = new MainWindow(RemoteService);
             _window.Activate();
+        }
+        private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"[UNHANDLED EXCEPTION] {e.Exception.Message}");
+            System.Diagnostics.Debug.WriteLine(e.Exception.ToString());
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Dn500BD.Retrograde;
 public sealed partial class UnitControllerWindow : Window
 {
     private readonly string comPort;
+    private bool _initialized = false;
 
     public string PositionLabel { get; } = "00:00";
 
@@ -39,11 +40,24 @@ public sealed partial class UnitControllerWindow : Window
 
         WindowHelpers.ForceDarkTitleBarColors(this);
 
-        Activated += (_, _) =>
+        Activated += OnActivated;
+    }
+    private void OnActivated(object sender, WindowActivatedEventArgs args)
+    {
+        if (_initialized)
+            return;
+
+        _initialized = true;
+
+        try
         {
             WindowHelpers.SetWindowSize(this, 1020, 620);
             WindowHelpers.CenterOnScreen(this);
-        };
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[Window Init] Failed to set size or center: {ex.Message}");
+        }
     }
 
     public void CenterOnScreen()

@@ -26,7 +26,7 @@ namespace Dn500BD
     {
         private Window? _window;
 
-        public static DenonRemoteService RemoteService { get; private set; } = null!;
+        public static IDenonRemoteService RemoteService { get; private set; } = null!;
 
         public App()
         {
@@ -53,7 +53,7 @@ namespace Dn500BD
                 .Create(builder => builder.AddConsole())
                 .CreateLogger("DenonRemote");
 
-            Func<string, ISerialPortService> serialFactory = _ => new SerialPortService();
+            Func<string, ISerialPortService> serialFactory = _ => new SerialPortService(logger);
 
             // Create the global service instance
             RemoteService = new DenonRemoteService(logger, serialFactory);

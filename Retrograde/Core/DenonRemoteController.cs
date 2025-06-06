@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Dn500BD.Retrograde.Infra;
 using Microsoft.Extensions.Logging;
 
@@ -31,12 +32,14 @@ public class DenonRemoteController : IDenonRemote, IDisposable
         _logger = logger;
     }
 
-    public bool SendCommand(DenonCommand command)
+    public async Task<bool> SendCommandAsync(DenonCommand command, CancellationToken token = default)
     {
         try
         {
-            using var cts = new CancellationTokenSource(3000);
-            bool success = _serial.SendCommand(command.Code, cts.Token);
+            using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(token);
+            linkedCts.CancelAfter(3000);
+
+            bool success = await _serial.SendCommandAsync(command.Code, linkedCts.Token);
 
             if (success)
                 _logger.LogInformation("Command {Label} sent successfully.", command.Label);
@@ -52,11 +55,11 @@ public class DenonRemoteController : IDenonRemote, IDisposable
         }
     }
 
-    public bool ValidateConnection(CancellationToken token = default)
+    public async Task<bool> ValidateConnectionAsync(CancellationToken token = default)
     {
         try
         {
-            string response = _serial.SendCommandAndRead(_commandMap["ConnectionTest"].Code, token);
+            string response = await _serial.SendCommandAndReadAsync(_commandMap["ConnectionTest"].Code, token);
             _logger.LogInformation("Connection test response: {Response}", response);
             return response.Contains("PCCT00");
         }

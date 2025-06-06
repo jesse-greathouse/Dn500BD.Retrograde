@@ -22,9 +22,9 @@ namespace Dn500BD.Retrograde
     {
         private MicaController? _micaController;
         private SystemBackdropConfiguration? _backdropConfig;
-        private readonly DenonRemoteService _remoteService;
+        private readonly IDenonRemoteService _remoteService;
 
-        public MainWindow(DenonRemoteService remoteService)
+        public MainWindow(IDenonRemoteService remoteService)
         {
             this.InitializeComponent();
             _remoteService = remoteService;
@@ -108,9 +108,26 @@ namespace Dn500BD.Retrograde
 
                 RefreshComPortList();
             }
+            catch (TimeoutException tex)
+            {
+                Debug.WriteLine($"[OnOpenControllerClick] Port {selectedPort} timed out: {tex.Message}");
+
+                ContentDialog timeoutDialog = new()
+                {
+                    Title = "Connection Timeout",
+                    Content = $"The port {selectedPort} did not respond in time.\n\n" +
+                              $"Make sure the device is powered on and connected properly.\n" +
+                              $"Technical details:\n{tex.Message}",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.Content.XamlRoot
+                };
+
+                _ = timeoutDialog.ShowAsync();
+            }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Failed to open controller for {selectedPort}: {ex.Message}");
+                Debug.WriteLine($"[OnOpenControllerClick] Failed to open controller for {selectedPort}: {ex}");
+
                 ContentDialog errorDialog = new()
                 {
                     Title = "Connection Error",
@@ -118,6 +135,7 @@ namespace Dn500BD.Retrograde
                     CloseButtonText = "OK",
                     XamlRoot = this.Content.XamlRoot
                 };
+
                 _ = errorDialog.ShowAsync();
             }
         }
@@ -126,7 +144,14 @@ namespace Dn500BD.Retrograde
         {
             foreach (var port in _remoteService.All.Keys.ToList())
             {
-                _remoteService.Disconnect(port);
+                try
+                {
+                    _remoteService.Disconnect(port);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[Exit] Failed to disconnect {port}: {ex.Message}");
+                }
             }
 
             this.Close();

@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 using Dn500BD.Retrograde.Infra;
+using Microsoft.Extensions.Logging;
 
 namespace Dn500BD.Retrograde.Core;
 
-public class DenonRemoteService
+public class DenonRemoteService : IDenonRemoteService
 {
     private readonly Dictionary<string, UnitController> _controllers = new();
+    private readonly object _sync = new(); // synchronization lock
+
     private readonly ILogger _logger;
     private readonly Func<string, ISerialPortService> _serialFactory;
 
@@ -16,48 +19,84 @@ public class DenonRemoteService
         _logger = logger;
         _serialFactory = serialFactory;
     }
+
     public UnitController Connect(string comPort, IEnumerable<Action>? onWindowClosed = null)
     {
-        if (_controllers.ContainsKey(comPort))
-            throw new InvalidOperationException($"COM port {comPort} is already connected.");
-
-        var serial = _serialFactory(comPort);
-        serial.Open(comPort);
-
-        var remote = new DenonRemoteController(serial, _logger);
-
-        // Validate connection
-        if (!remote.ValidateConnection())
+        lock (_sync)
         {
-            serial.Close();
-            throw new InvalidOperationException($"Device on {comPort} is not a DN-500BD MKII.");
+            if (_controllers.ContainsKey(comPort))
+                throw new InvalidOperationException($"COM port {comPort} is already connected.");
         }
 
-        var window = new UnitControllerWindow(comPort);
-        var controller = new UnitController(remote, window);
-        _controllers[comPort] = controller;
+        ISerialPortService? serial = null;
 
-        window.Closed += (_, _) =>
+        try
         {
-            Disconnect(comPort);
-            if (onWindowClosed != null)
+            serial = _serialFactory(comPort);
+            serial.Open(comPort);
+
+            var remote = new DenonRemoteController(serial, _logger);
+
+            try
             {
-                foreach (var callback in onWindowClosed)
-                {
-                    try { callback(); } catch (Exception ex) { _logger.LogWarning(ex, "Callback failed on window close."); }
-                }
+                var validated = Task.Run(() => remote.ValidateConnectionAsync()).GetAwaiter().GetResult();
+                if (!validated)
+                    throw new InvalidOperationException($"Device on {comPort} is not a DN-500BD MKII.");
             }
-        };
+            catch (Exception ex)
+            {
+                serial.Close();
+                _logger.LogWarning(ex, "Validation failed during Connect()");
+                throw;
+            }
 
-        window.Activate();
-        window.CenterOnScreen();
+            var window = new UnitControllerWindow(comPort);
+            var controller = new UnitController(remote, window);
 
-        return controller;
+            lock (_sync)
+            {
+                _controllers[comPort] = controller;
+            }
+
+            window.Closed += (_, _) =>
+            {
+                Disconnect(comPort);
+                if (onWindowClosed != null)
+                {
+                    foreach (var callback in onWindowClosed)
+                    {
+                        try { callback(); }
+                        catch (Exception ex) { _logger.LogWarning(ex, "Callback failed on window close."); }
+                    }
+                }
+            };
+
+            window.Activate();
+            window.CenterOnScreen();
+
+            return controller;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to connect to {ComPort}", comPort);
+            serial?.Close();
+            throw;
+        }
     }
 
     public void Disconnect(string comPort)
     {
-        if (_controllers.TryGetValue(comPort, out var controller))
+        UnitController? controller = null;
+
+        lock (_sync)
+        {
+            if (_controllers.TryGetValue(comPort, out controller))
+            {
+                _controllers.Remove(comPort);
+            }
+        }
+
+        if (controller != null)
         {
             try
             {
@@ -67,15 +106,26 @@ public class DenonRemoteService
             {
                 _logger.LogWarning(ex, "Error disposing remote for {ComPort}", comPort);
             }
-            _controllers.Remove(comPort);
         }
     }
 
     public UnitController? Get(string comPort)
     {
-        _controllers.TryGetValue(comPort, out var controller);
-        return controller;
+        lock (_sync)
+        {
+            _controllers.TryGetValue(comPort, out var controller);
+            return controller;
+        }
     }
 
-    public IReadOnlyDictionary<string, UnitController> All => _controllers;
+    public IReadOnlyDictionary<string, UnitController> All
+    {
+        get
+        {
+            lock (_sync)
+            {
+                return new Dictionary<string, UnitController>(_controllers);
+            }
+        }
+    }
 }
